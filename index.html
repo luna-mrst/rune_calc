@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>サイズ</th>
+                <th>上昇値</th>
+                <th>同種30</th>
+                <th>異種30</th>
+                <th>同種33</th>
+                <th>異種33</th>
+            </tr>
+        </thead>
+        <tbody id="tbl">
+            <tr>
+                <td><input class="esa" type="number" min="27.000" max="33.000" step="0.001"></td>
+                <td class="rise"></td>
+                <td class="same30"></td>
+                <td class="diff30"></td>
+                <td class="same33"></td>
+                <td class="diff33"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><button id="add">入力欄追加</button></p>
+    <script src="./js/calc.js"></script>
+</body>
+
+</html>
