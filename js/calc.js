@@ -28,6 +28,7 @@ document.getElementById('add').addEventListener('click', event => {
         tr.appendChild(td);
     });
     document.getElementById('tbl').appendChild(tr);
+    inp.focus();
 });
 
 function find(parent, target) {

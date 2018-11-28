@@ -3,32 +3,62 @@
 
 <head>
     <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .container{
+            padding-bottom: 3em;
+            margin: 10px;
+            display: inline-block;
+        }
+        table{
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-collapse: collapse;
+            
+        }
+        th, td {
+            width: 70px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 3px;
+        }
+        td {
+            text-align: right;
+        }
+        input {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>サイズ</th>
-                <th>上昇値</th>
-                <th>同種30</th>
-                <th>異種30</th>
-                <th>同種33</th>
-                <th>異種33</th>
-            </tr>
-        </thead>
-        <tbody id="tbl">
-            <tr>
-                <td><input class="esa" type="number" min="27.000" max="33.000" step="0.001"></td>
-                <td class="rise"></td>
-                <td class="same30"></td>
-                <td class="diff30"></td>
-                <td class="same33"></td>
-                <td class="diff33"></td>
-            </tr>
-        </tbody>
-    </table>
-    <p><button id="add">入力欄追加</button></p>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>サイズ</th>
+                    <th>上昇値</th>
+                    <th>同種30</th>
+                    <th>異種30</th>
+                    <th>同種33</th>
+                    <th>異種33</th>
+                </tr>
+            </thead>
+            <tbody id="tbl">
+                <tr>
+                    <td><input class="esa" type="number" min="27.000" max="33.000" step="0.001"></td>
+                    <td class="rise"></td>
+                    <td class="same30"></td>
+                    <td class="diff30"></td>
+                    <td class="same33"></td>
+                    <td class="diff33"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p><button id="add">入力欄追加</button></p>
+    </div>
     <script src="./js/calc.js"></script>
 </body>
 
