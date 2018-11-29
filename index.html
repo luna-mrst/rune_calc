@@ -27,6 +27,9 @@
         td {
             text-align: right;
         }
+        th:first-child, td:first-child{
+          width: 30px;
+        }
         input {
             width: 100%;
         }
@@ -38,6 +41,7 @@
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>サイズ</th>
                     <th>上昇値</th>
                     <th>同種30</th>
@@ -48,7 +52,8 @@
             </thead>
             <tbody id="tbl">
                 <tr>
-                    <td><input class="esa" type="number" min="27.000" max="33.000" step="0.001"></td>
+                    <td><button class="deleteButton">×</td>
+                    <td><input type="number" min="27.000" max="33.000" step="0.001"></td>
                     <td class="rise"></td>
                     <td class="same30"></td>
                     <td class="diff30"></td>
@@ -59,6 +64,7 @@
         </table>
         <p><button id="add">入力欄追加</button></p>
     </div>
+    <script src="./js/define.js"></script>
     <script src="./js/calc.js"></script>
 </body>
 
