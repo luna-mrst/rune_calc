@@ -14,7 +14,7 @@ function getTrDefine() {
                 tag: 'td',
                 children: [{
                     tag: 'input',
-                    class: ['inp'],
+                    class: ['value'],
                     attr: {
                         type: 'number',
                         min: '27.000',
@@ -73,4 +73,13 @@ function findFirstByClassName(element, target) {
         if (elm.classList.contains(target)) return elm;
         [].forEach.call(elm.children, c => queue.push(c));
     }
+}
+
+// val: 四捨五入する値
+// digit: 残す桁数
+function round(val, digit) {
+    if (isNaN(val)) return NaN;
+    const tmp = Math.pow(10, digit);
+    return Math.round(val * tmp) / tmp;
+
 }
