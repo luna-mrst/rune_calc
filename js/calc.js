@@ -78,8 +78,12 @@ document.getElementById('delete').addEventListener('click', e => {
 document.getElementById('calc').addEventListener('click', e => {
     const result = document.getElementById('result');
     result.innerText = '';
-    const riseList = [].map.call(document.querySelectorAll('.rise'), v => parseFloat(v.innerText) * 1000).map(v => isNaN(v) ? 0 : v);
     let base = parseFloat(document.getElementById('base').value) * 1000;
+    const riseList = [].map.call(document.querySelectorAll('.value'), v => {
+        const esa = parseFloat(v.value) * 1000;
+        const rise = (((esa - 27000) / 10) + 50);
+        return base <= 30000 ? rise : rounding(rise / 2, 0);
+    }).map(v => isNaN(v) ? 0 : v);
     if(isNaN(base)) return;
     const limit = base <= 30000 ? 30000 : 33000;
     const ans = solve(riseList, limit, base);
@@ -88,7 +92,7 @@ document.getElementById('calc').addEventListener('click', e => {
     ans.forEach(v => {
         const tr = document.querySelector('#tbl tr:nth-child('+v+')');
         tr.classList.add('use');
-        base += parseFloat(findFirstByClassName(tr, 'rise').innerText) * 1000;
+        base += riseList[v-1];
     });
     result.innerText = `強化後の値は${base / 1000}`;
 });

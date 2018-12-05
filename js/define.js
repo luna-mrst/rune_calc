@@ -89,9 +89,6 @@ function rounding(val, digit, flg) {
 // note: とりあえず総当たりで出している。baseが小さかったり入力値が多いと時間がかかってしまうため要改善
 function solve(riseList, limit, base) {
     const len = riseList.length;
-    const memo = [];
-    riseList.forEach(() => memo.push({}));
-    memo.push({});
     return function fun(idx, now) {
         let res;
         if(idx == len) {
