@@ -45,17 +45,18 @@ document.getElementById('add').addEventListener('click', event => {
 });
 
 document.getElementById('save').addEventListener('click', e => {
+    if(localStorage.getItem('values') && !confirm('既に保存されている内容があります。上書きしますか？')) return;
     const values = [];
     [].forEach.call(document.getElementsByClassName('value'), v => { values.push(v.value) });
     localStorage.setItem('values', values);
-    alert('保存したよ！');
+    confirm('保存したよ！');
 });
 
 document.getElementById('load').addEventListener('click', e => {
     const values = localStorage.getItem('values');
     if (values == null) {
-        alert('値が保存されてないよ。。。？');
-        return;
+        confirm('値が保存されてないよ。。。？');
+        return
     }
     const tbl = document.getElementById('tbl');
     while (tbl.firstChild) tbl.removeChild(tbl.firstChild);
@@ -72,7 +73,7 @@ document.getElementById('load').addEventListener('click', e => {
 
 document.getElementById('delete').addEventListener('click', e => {
     localStorage.removeItem('values');
-    alert('消したよ！');
+    confirm('消したよ！');
 });
 
 document.getElementById('calc').addEventListener('click', e => {
@@ -82,7 +83,7 @@ document.getElementById('calc').addEventListener('click', e => {
     const riseList = [].map.call(document.querySelectorAll('.value'), v => {
         const esa = parseFloat(v.value) * 1000;
         const rise = (((esa - 27000) / 10) + 50);
-        return base <= 30000 ? rise : rounding(rise / 2, 0);
+        return base <= 30000 ? rounding(rise, 0) : rounding(rise / 2, 0);
     }).map(v => isNaN(v) ? 0 : v);
     if(isNaN(base)) return;
     const limit = base <= 30000 ? 30000 : 33000;
@@ -94,5 +95,5 @@ document.getElementById('calc').addEventListener('click', e => {
         tr.classList.add('use');
         base += riseList[v-1];
     });
-    result.innerText = `強化後の値は${base / 1000}`;
+    result.innerText = `強化後の値は${rounding(base / 1000, 3)}`;
 });
