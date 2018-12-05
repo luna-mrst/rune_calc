@@ -7,12 +7,11 @@
         * {
             box-sizing: border-box;
         }
-        .container{
-            padding-bottom: 3em;
+        .container {
             margin: 10px;
-            display: inline-block;
+            width: 460px;
         }
-        table{
+        table {
             border-top: 1px solid black;
             border-left: 1px solid black;
             border-collapse: collapse;
@@ -27,7 +26,7 @@
         td {
             text-align: right;
         }
-        th:first-child, td:first-child{
+        th:first-child, td:first-child {
           width: 30px;
         }
         input {
@@ -35,6 +34,20 @@
         }
         .use {
             background-color: azure;
+        }
+        .summary {
+            background-color: azure;
+            border: yellowgreen double 1px;
+            border-radius: 5px;
+            width: 100%;
+            padding: 0.5em;
+            user-select: none;
+        }
+        .summary p {
+            margin: 0;
+        }
+        .notes {
+            color: red;
         }
     </style>
 </head>
@@ -75,6 +88,16 @@
             <button id="load">保存値読込</button>
             <button id="delete">保存値削除</button>
         </p>
+        <div class="summary">
+            <p>使い方</p>
+            <p>1.｢サイズ｣の入力欄に餌にするルーンの魔力値を入力すると基本の上昇値とその餌を使った場合に30・33ぴったりになる強化元の魔力値が自動で計算されて表示されます。</p>
+            <p class="notes">※端数の処理の問題で誤差が出る場合がわりとあります。端数が出た時の｢サイズ｣と実際の上昇値を教えてもらえると精度が上がるかもしれません。</p>
+            <p>2.｢サイズ｣と｢強化元魔力値｣の値を入力し、｢計算する｣ボタンを押すと強化元の魔力値に応じて30・33にもっとも近づく餌の組み合わせを検索します。</p>
+            <p class="notes">※やっぱり誤差が出るかもしれないので、強化してからずれてても責任はとれません。(・ω&lt;)ﾃﾍﾍﾟﾛ</p>
+            <p class="notes">｢強化元｣の値が小さすぎたり、餌の入力数が多すぎると計算に時間がかかったりエラーになるかも(・ω&lt;)ﾃﾍﾍﾟﾛ</p>
+            <p>3.｢入力値保存｣ボタンを押すと、入力してある餌の情報を保存します。保存した値は｢保存値読込｣ボタンで復元できます。</p>
+            <p class="notes">※読込ボタンを押すと現在入力してある内容は上書きされます。</p>
+        </div>
     </div>
     <script src="./js/define.js"></script>
     <script src="./js/calc.js"></script>

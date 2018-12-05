@@ -16,11 +16,10 @@ tbl.addEventListener('change', event => {
     const parent = event.target.parentNode.parentNode;
     const base_rise = (((esa - 27000) / 10) + 50) / 1000;
     findFirstByClassName(parent, 'rise').innerText = rounding(base_rise, 3) || '';
-    findFirstByClassName(parent, 'same30').innerText = 30 - rounding(base_rise * 2, 3) || '';
-    findFirstByClassName(parent, 'diff30').innerText = 30 - rounding(base_rise, 3) || '';
-    findFirstByClassName(parent, 'same33').innerText = 33 - rounding(base_rise, 3) || '';
-    findFirstByClassName(parent, 'diff33').innerText = 33 - rounding(base_rise / 2, 3) || '';
-
+    findFirstByClassName(parent, 'same30').innerText = rounding(30 - base_rise * 2, 3) || '';
+    findFirstByClassName(parent, 'diff30').innerText = rounding(30 - base_rise, 3) || '';
+    findFirstByClassName(parent, 'same33').innerText = rounding(33 - base_rise, 3) || '';
+    findFirstByClassName(parent, 'diff33').innerText = rounding(33 - base_rise / 2, 3) || '';
 });
 
 tbl.addEventListener('click', event => {
