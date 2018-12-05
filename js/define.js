@@ -77,9 +77,39 @@ function findFirstByClassName(element, target) {
 
 // val: 四捨五入する値
 // digit: 残す桁数
-function round(val, digit) {
+// flg: c→切り上げ f→切り捨て 他→四捨五入
+function rounding(val, digit, flg) {
+    const func = flg === 'c' ? Math.ceil : flg === 'f' ? Math.floor : Math.round;
     if (isNaN(val)) return NaN;
     const tmp = Math.pow(10, digit);
-    return Math.round(val * tmp) / tmp;
+    return func(val * tmp) / tmp;
 
+}
+
+// note: とりあえず総当たりで出している。baseが小さかったり入力値が多いと時間がかかってしまうため要改善
+function solve(riseList, limit, base) {
+    const len = riseList.length;
+    const memo = [];
+    riseList.forEach(() => memo.push({}));
+    memo.push({});
+    return function fun(idx, now) {
+        let res;
+        if(idx == len) {
+            res = {use:[], now: 0};
+        } else if(now + riseList[idx] > limit) {
+            // 強化に使うと超えてしまうため不使用
+            // 以降の値を使った時の最大値を返す
+            res = fun(idx + 1, now);
+        } else {
+            // 強化に使わない場合
+            const tmp1 = fun(idx + 1, now);
+            // 強化に使う場合
+            const tmp2 = fun(idx + 1, now + riseList[idx]);
+            tmp2.now = tmp2.now + riseList[idx];
+            tmp2.use = tmp2.use.slice();
+            tmp2.use.push(idx);
+            res = tmp1.now >= tmp2.now ? tmp1: tmp2;
+        }
+        return res;
+    }(0, base).use.map(v => v + 1);
 }
