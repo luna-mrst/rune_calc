@@ -97,18 +97,23 @@ document.getElementById('read').addEventListener('click', e => {
         return;
     }
 
+    let count = 0;
     e.target.setAttribute('disabled', true);
-    const reader = new FileReader();
-    reader.onload = re => {
-        const img = new Image();
-        img.src = re.target.result;
-        img.onload = () => {
-            OCRAD(img, txt => {
-                const values = txt.replace(/[zoT]/g, c => ({z:'2', o:'0', T:'7'}[c])).match(/\d{2}\.\d{3}/g);
-                createRows(values);
-                e.target.removeAttribute('disabled');
-            });
+
+    [].forEach.call(file.files, (f, idx) => {
+        const reader = new FileReader();
+        reader.onload = re => {
+            const img = new Image();
+            img.src = re.target.result;
+            img.onload = () => {
+                OCRAD(img, txt => {
+                    const values = txt.replace(/[zoT]/g, c => ({ z: '2', o: '0', T: '7' }[c])).match(/\d{2}\.\d{3}/g);
+                    createRows(values);
+                    if (--count === 0) e.target.removeAttribute('disabled');
+                });
+            };
         };
-    };
-    reader.readAsDataURL(file.files[0]);
+        reader.readAsDataURL(f);
+        count++;
+    });
 });
