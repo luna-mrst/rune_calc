@@ -29,13 +29,13 @@ tbl.addEventListener('click', event => {
 });
 
 tbl.addEventListener('keyup', e => {
-    if(e.key !== 'Enter') return;
+    if (e.key !== 'Enter') return;
     const tr = document.querySelectorAll('#tbl tr');
     const idx = [].indexOf.call(tr, e.target.parentNode.parentNode);
-    if((tr.length - 1) === idx) {
+    if ((tr.length - 1) === idx) {
         document.getElementById('add').click();
     } else {
-        findFirstByClassName(tr[idx+1], 'value').focus();
+        findFirstByClassName(tr[idx + 1], 'value').focus();
     }
 });
 
@@ -45,7 +45,7 @@ document.getElementById('add').addEventListener('click', event => {
 });
 
 document.getElementById('save').addEventListener('click', e => {
-    if(localStorage.getItem('values') && !confirm('既に保存されている内容があります。上書きしますか？')) return;
+    if (localStorage.getItem('values') && !confirm('既に保存されている内容があります。上書きしますか？')) return;
     const values = [];
     [].forEach.call(document.getElementsByClassName('value'), v => { values.push(v.value) });
     localStorage.setItem('values', values);
@@ -60,15 +60,7 @@ document.getElementById('load').addEventListener('click', e => {
     }
     const tbl = document.getElementById('tbl');
     while (tbl.firstChild) tbl.removeChild(tbl.firstChild);
-    const evt = document.createEvent('Event');
-    evt.initEvent('change', true, true);
-    values.split(',').forEach(v => {
-        const tr = createDOM(getTrDefine());
-        const value = findFirstByClassName(tr, 'value');
-        value.value = v;
-        tbl.appendChild(tr);
-        value.dispatchEvent(evt);
-    });
+    createRows(values.split(','));
 });
 
 document.getElementById('delete').addEventListener('click', e => {
@@ -78,22 +70,45 @@ document.getElementById('delete').addEventListener('click', e => {
 
 document.getElementById('calc').addEventListener('click', e => {
     const result = document.getElementById('result');
-    result.innerText = '';
     let base = parseFloat(document.getElementById('base').value) * 1000;
     const riseList = [].map.call(document.querySelectorAll('.value'), v => {
         const esa = parseFloat(v.value) * 1000;
         const rise = (((esa - 27000) / 10) + 50);
         return base <= 30000 ? rounding(rise, 0) : rounding(rise / 2, 0);
     }).map(v => isNaN(v) ? 0 : v);
-    if(isNaN(base)) return;
+    if (isNaN(base)) return;
     const limit = base <= 30000 ? 30000 : 33000;
     const ans = solve(riseList, limit, base);
     const use = document.getElementsByClassName('use');
-    while(use.length > 0) use[0].classList.remove('use');
+    while (use.length > 0) use[0].classList.remove('use');
     ans.forEach(v => {
-        const tr = document.querySelector('#tbl tr:nth-child('+v+')');
+        const tr = document.querySelector('#tbl tr:nth-child(' + (v + 1) + ')');
         tr.classList.add('use');
-        base += riseList[v-1];
+        base += riseList[v];
     });
     result.innerText = `強化後の値は${rounding(base / 1000, 3)}`;
+    e.target.removeAttribute('disabled');
+});
+
+document.getElementById('read').addEventListener('click', e => {
+    const file = document.getElementById('file');
+    if (file.files.length === 0) {
+        alert('画像選んで出直してこい？');
+        return;
+    }
+
+    e.target.setAttribute('disabled', true);
+    const reader = new FileReader();
+    reader.onload = re => {
+        const img = new Image();
+        img.src = re.target.result;
+        img.onload = () => {
+            OCRAD(img, txt => {
+                const values = txt.replace(/[zoT]/g, c => ({z:'2', o:'0', T:'7'}[c])).match(/\d{2}\.\d{3}/g);
+                createRows(values);
+                e.target.removeAttribute('disabled');
+            });
+        };
+    };
+    reader.readAsDataURL(file.files[0]);
 });
