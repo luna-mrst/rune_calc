@@ -133,7 +133,7 @@ function solve(riseList, limit, base) {
             res = tmp1.now >= tmp2.now ? tmp1: tmp2;
         }
         return res;
-    }(0, base).use.map(v => v + 1);
+    }(0, base).use;//.map(v => v + 1);
 }
 
 /**
