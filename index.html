@@ -3,58 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        .container {
-            margin: 10px;
-            width: 460px;
-        }
-        table {
-            border-top: 1px solid black;
-            border-left: 1px solid black;
-            border-collapse: collapse;
-            
-        }
-        th, td {
-            width: 70px;
-            border-right: 1px solid black;
-            border-bottom: 1px solid black;
-            padding: 3px;
-        }
-        td {
-            text-align: right;
-        }
-        th:first-child, td:first-child {
-          width: 30px;
-        }
-        input[type="number"] {
-            width: 70px;
-        }
-        .use {
-            background-color: azure;
-        }
-        .summary {
-            background-color: azure;
-            border: yellowgreen double 1px;
-            border-radius: 5px;
-            width: 100%;
-            padding: 0.5em;
-            user-select: none;
-        }
-        .summary p {
-            margin: 0;
-        }
-        .notes {
-            font-size: 0.8em;
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css?2018/12/25">
 </head>
 
 <body>
-    <div class="container">
+    <div id="mainContent" class="container">
         <p>
             強化元魔力値：<input type="number" id="base" min="27.001" max="33.000" step="0.001">
             <button id="calc">計算する</button>&nbsp;<span id="result"></span>
@@ -103,15 +56,28 @@
             <p class="notes">※｢強化元｣の値が小さすぎたり、餌の入力数が多すぎると計算に時間がかかったりエラーになるかも(・ω&lt;)ﾃﾍﾍﾟﾛ</p>
             <p>3.｢入力値保存｣ボタンを押すと、入力してある餌の情報を保存します。保存した値は｢保存値読込｣ボタンで復元できます。</p>
             <p class="notes">※読込ボタンを押すと現在入力してある内容は上書きされます。</p>
-            <p>4.ルーン一覧のSSを選択して｢SSから読み込む｣ボタンを押すと、SSに映ってるルーンの魔力値を読み込んで自動で入力してくれるよ。</p>
+            <p>4.ルーン一覧のSSを選択して｢SSから読み込む｣ボタンを押すと、SSに映ってるルーンの魔力値を読み込めるよ。</p>
             <p class="notes">※画像の解析に少し時間がかかるよ。気長に待ってね(&nbsp;˘ω˘&nbsp;)ｽﾔ</p>
-            <p class="notes">※解析の精度そんなに良くないから、読み込めなかった分は手動でやってね(｢・ω・)｢</p>
-            <p class="notes">どれが読み込めなかったかわかりにくいって？そのうち表示する機能を実装するかもね(&nbsp;˘ω˘;)ｽ､ｽﾔ</p>
+            <p class="notes">※解析が終わったら読み込んだ値が表示されるよ。そんなに精度良くないからうまく読み込めないやつが結構あるけど、赤枠で表示されるから手動で入力し直してね。入力が終わったら｢読み込む｣ボタンを押すと、緑枠のやつを読み込むよ(｢・ω・)｢</p>
+            <p class="notes">※どれが読み込めなかったかわかりにくいって？そのうち表示する機能を実装するかもね(&nbsp;˘ω˘;)ｽ､ｽﾔ</p>
+            <p class="notes">↑読込用の画面作ってわかるようにしたよo(`・ω´・+o) ﾄﾞﾔｧ…！</p>
         </div>
     </div>
+
+    <div class="modal-overlay hide">
+        <div class="modal-content">
+            <div id="loading" class="loading"></div>
+            <div id="modalMain"></div>
+            <div id="buttons">
+                <button id="modalLoad">読み込む</button>
+                <button id="modalCancel">読み込まない</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/ocrad.js"></script>
-    <script src="./js/define.js"></script>
-    <script src="./js/calc.js"></script>
+    <!-- <script src="./js/define.js"></script> -->
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
