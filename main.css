@@ -5,7 +5,7 @@
 
 .container {
     margin: 10px auto;
-    width: 460px;
+    width: 500px;
 }
 
 table {
@@ -30,8 +30,17 @@ th:first-child, td:first-child {
     width: 30px;
 }
 
+th:nth-child(3), td:nth-child(3) {
+    width: 50px;
+    text-align: center;
+}
+
 input[type="number"] {
     width: 70px;
+}
+
+.buttons button {
+    margin-left: 5px;
 }
 
 .use {
@@ -46,9 +55,11 @@ input[type="number"] {
     padding: 0.5em;
     user-select: none;
 }
+
 .summary p {
     margin: 0;
 }
+
 .notes {
     font-size: 0.8em;
     color: red;
