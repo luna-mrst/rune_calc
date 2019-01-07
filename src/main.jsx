@@ -20,3 +20,16 @@ export default class MainComponent extends React.Component {
 }
 
 ReactDOM.render(<MainComponent />, document.getElementById("mainContent"));
+
+let lastTouchEnd = new Date().getTime();
+document.documentElement.addEventListener(
+  "touchend",
+  e => {
+    const now = new Date().getTime();
+    if (now - lastTouchEnd <= 500) {
+      e.preventDefault();
+    }
+    lastTouchEnd = now;
+  },
+  { capture: false, passive: false }
+);
