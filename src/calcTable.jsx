@@ -21,7 +21,7 @@ export default class CalcTable extends React.Component {
       values: [Object.assign({}, this.defaultValue)],
       result: "",
       isModalOpen: false,
-      isLoading: false
+      files: []
     };
   }
 
@@ -156,16 +156,37 @@ export default class CalcTable extends React.Component {
   }
 
   loadFiles(files) {
-    console.log(files);
+    if (files.length === 0) {
+      alert('画像選んで出直してこい？');
+      return;
+    }
+
     this.setState({
       isModalOpen: true,
-      isLoading: true
+      files: files
     });
-    setTimeout(() => {
-      this.setState({
-        isLoading: false
-      })
-    }, 3000);
+  }
+
+  loadFileModalCancel() {
+    this.setState({
+      isModalOpen: false,
+      files: []
+    });
+  }
+
+  loadFileModalExec(values) {
+    const state = this.state.values;
+    values.forEach(v => {
+      const value = Object.assign({}, this.defaultValue, { value: v.value, same: v.same });
+      state.push(value);
+    });
+    this.setState(
+      {
+        isModalOpen: false,
+        values: state.filter(v => v.value !== '')
+      },
+      this.dispatchBlur
+    );
   }
 
   dispatchBlur() {
@@ -213,10 +234,9 @@ export default class CalcTable extends React.Component {
         <Summary />
         {this.state.isModalOpen && (
           <ModalComponent
-            onClose={() => {
-              this.setState({ isModalOpen: false });
-            }}
-            isLoading={this.state.isLoading}
+            onCancel={this.loadFileModalCancel.bind(this)}
+            onExec={this.loadFileModalExec.bind(this)}
+            files={this.state.files}
           />
         )}
       </div>

@@ -82,7 +82,7 @@ input[type="number"] {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    width: 400px;
+    width: 480px;
     min-height: 140px;
     max-height: 600px;
     overflow-y: scroll;
@@ -132,12 +132,16 @@ input[type="number"] {
 
 .modal-content .grid {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    
+    grid-template-columns: 20% 5% 20% 5% 20% 5% 20% 5%;
+    grid-template-rows: 35px 35px;
+    margin-bottom: 5px;
+}
+
+.modal-content .grid input {
+    margin: auto;
 }
 
 .modal-content .invalid {
-    margin: 5px;
     padding: 2px;
     width: 70px;
     border: 1px solid red;
@@ -145,7 +149,6 @@ input[type="number"] {
 }
 
 .modal-content .valid {
-    margin: 5px;
     padding: 2px;
     width: 70px;
     border: 1px solid limegreen;
