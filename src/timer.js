@@ -8,7 +8,7 @@
     style.innerText = `
     #msecTimer {
       font-size: 25px;
-      width: 180px;
+      width: 8em;
       height: 1.5em;
       text-align: center;
       position: fixed;
@@ -18,6 +18,10 @@
       border-radius: 5%;
       background: white;
       z-index: 1000;
+    }
+    #msecTimer span {
+      display: inline-block;
+      width: 5.5em;
     }
     #msecTimer .reload {
       position: relative;
