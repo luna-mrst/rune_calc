@@ -198,6 +198,10 @@ export default class CalcTable extends React.Component {
     );
   }
 
+  allCheck() {
+    this.state.values.forEach((v,i) => this.checkEvent(i));
+  }
+
   render() {
     return (
       <div className="container">
@@ -230,6 +234,7 @@ export default class CalcTable extends React.Component {
           <button onClick={this.saveValues.bind(this)}>入力値保存</button>
           <button onClick={this.loadValues.bind(this)}>保存値読込</button>
           <button onClick={this.deleteValues}>保存値削除</button>
+          <button onClick={this.allCheck.bind(this)}>チェック反転</button>
         </p>
         <Summary />
         {this.state.isModalOpen && (
