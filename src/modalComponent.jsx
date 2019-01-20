@@ -28,7 +28,7 @@ export default class ModalComponent extends React.Component {
             values: []
           };
           OCRAD(img, txt => {
-            const matches = txt.replace(/[zoT]/g, c => ({ z: '2', o: '0', T: '7' }[c])).match(/[\di_]{2}\.[\di_]{3}/g);
+            const matches = txt.replace(/[zoT_]/g, c => ({ z: '2', o: '0', T: '7', _: '4' }[c])).match(/[\di_]{2}\.[\di_]{3}/g);
             matches.reduce((a, v) => {
               const value = {
                 value: v,
