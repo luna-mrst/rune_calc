@@ -1,23 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import CalcTable from "./calcTable";
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+import CalcTable from "./components/calcTable";
 
-export default class MainComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  inputClick(data) {
-    this.setState({
-      result: data
-    });
-  }
-
-  render() {
-    return <CalcTable />;
-  }
-}
+const MainComponent = () => <CalcTable />;
 
 ReactDOM.render(<MainComponent />, document.getElementById("mainContent"));
 
