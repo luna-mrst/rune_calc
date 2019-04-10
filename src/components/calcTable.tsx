@@ -7,6 +7,7 @@ import TableRow from './tableRow';
 import Summary from './summary';
 import ModalComponent from './modalComponent';
 
+const legacy_strageKey = "strage_value";
 const strageKey = "strage_value2";
 
 export default () => {
@@ -106,7 +107,11 @@ export default () => {
   const loadValues = React.useCallback(() => {
     const strValues = localStorage.getItem(strageKey);
     if (strValues == null) {
-      confirm("値が保存されてないよ。。。？");
+      const legacy = localStorage.getItem(legacy_strageKey);
+      if (legacy != null)
+        legacyLoad(legacy);
+      else
+        confirm("値が保存されてないよ。。。？");
       return;
     }
 
@@ -121,7 +126,19 @@ export default () => {
     setValues(values.filter(val => val.rise !== 'NaN'));
   }, [values]);
 
+  const legacyLoad = React.useCallback((strValues: string) => {
+    const saveValues = strValues.split(",");
+    const stateValues = saveValues.map(v => {
+      const rune = new RuneStatus();
+      rune.value = v;
+      rune.rise = Logic.rounding(Logic.riseCalc(v, false, false)).toString();
+      return rune;
+    });
+    setValues(stateValues);
+  }, []);
+
   const deleteValues = React.useCallback(() => {
+    localStorage.removeItem(legacy_strageKey);
     localStorage.removeItem(strageKey);
     confirm("消したよ！");
   }, []);
