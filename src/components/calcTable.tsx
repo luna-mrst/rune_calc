@@ -75,7 +75,9 @@ export default () => {
     if (idx === values.length - 1) {
       addRow();
     } else {
-      setFocusIdx(idx + 1);
+      const nextRow = document
+        .querySelector<HTMLInputElement>(`#tbody tr:nth-child(${idx + 2}) input[type="number"]`);
+      if (nextRow != null) nextRow.focus();
     }
   }, [values]);
 
@@ -186,7 +188,7 @@ export default () => {
         result={result}
       />
       <FileInput loadFiles={loadFiles} />
-      <table>
+      <table className="mainTable">
         <thead>
           <tr>
             <th />

@@ -9,7 +9,7 @@ export default (props: FileInputProps): JSX.Element => {
   }, [input]);
 
   return (
-    <p>
+    <p className="fileInputArea">
       <input type="file" id="file" accept="image/*" multiple ref={input} />
       <button onClick={() => loadFiles()}>SSから読み込む</button>
     </p>
