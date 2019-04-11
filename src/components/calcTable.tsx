@@ -170,13 +170,16 @@ export default () => {
     }, values);
     setValues(vals);
     setModalOpen(false);
+    setFiles(null);
   }, [values]);
 
   const allCheck = React.useCallback(() => {
     const vals = values.slice();
     vals.forEach(val => {
       val.same = !val.same;
-      val.rise = Logic.rounding(Logic.riseCalc(val.value, val.same, false)).toString();
+      if (val.value !== '') {
+        val.rise = Logic.rounding(Logic.riseCalc(val.value, val.same, false)).toString();
+      }
     });
     setValues(vals);
   }, [values]);

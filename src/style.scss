@@ -14,6 +14,19 @@ $border: 1px solid #000;
 
 * {
   box-sizing: border-box;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 10px;
+    border-left: solid 1px #ececec;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    box-shadow: inset 0 0 0 2px #fff;
+    border-radius: 10px;
+  }
 }
 
 body {
@@ -50,7 +63,6 @@ body {
 
     input {
       margin-right: 5px;
-      font-size: 16px;
       width: 70px;
     }
   }
@@ -90,8 +102,7 @@ body {
         }
       }
       td {
-        input {
-          font-size: 16px;
+        input[type="number"] {
           width: 70px;
         }
         &:last-child {
@@ -102,29 +113,46 @@ body {
   }
 
   .buttons {
+    @include pc() {
+      display: flex;
+      justify-content: space-between;
+      width: 95%;
+    }
     @include sp() {
       display: grid;
       grid-template-rows: 50% 50%;
       grid-template-columns: 33% 33% 34%;
       grid-row-gap: 5px;
-    }
-    button {
-      margin-left: 5px;
+      button {
+        margin: 0 5px;
+      }
     }
   }
 
-  .summary {
+  details {
     background-color: azure;
     border: yellowgreen double 1px;
     border-radius: 5px;
-    width: 100%;
-    padding: 0.5em;
-    user-select: none;
-    p {
-      margin: 0;
-      &.notes {
-        font-size: 0.8em;
-        color: red;
+
+    &[open] summary {
+      border-bottom: yellowgreen solid 1px;
+    }
+    summary {
+      padding: 3px 10px;
+      outline: 0;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow-y: hidden;
+      padding: 0.5em;
+      user-select: none;
+      p {
+        margin: 0;
+        &.notes {
+          font-size: 0.8em;
+          color: red;
+        }
       }
     }
   }
@@ -142,33 +170,19 @@ body {
   margin-top: 0px;
 
   .modal-content {
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-track {
-      background: white;
-      border-radius: 10px;
-      border-left: solid 1px #ececec;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #ccc;
-      box-shadow: inset 0 0 0 2px #fff;
-    }
-
     @include pc() {
       width: 480px;
       padding: 10px 20px;
-      max-height: 600px;
     }
     @include sp() {
       width: 95%;
       padding: 10px 3px 10px 10px;
-      max-height: 500px;
     }
     z-index: 2;
     display: block;
     margin: 10px auto;
     min-height: 140px;
+    max-height: 60%;
     overflow-y: scroll;
     border: 2px solid gray;
     border-radius: 10px;
@@ -190,7 +204,6 @@ body {
         &[type="text"] {
           margin: auto;
           padding: 2px;
-          font-size: 16px;
           border-radius: 5px;
           border: 1px solid;
           @include pc() {
