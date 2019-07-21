@@ -52,16 +52,16 @@ export namespace Logic {
    * @returns 強化に使用する餌のindex番号のリスト
    */
   export const calc = (riseList: number[], limit: number, base: number): number[] => {
-    // 計算量を削るために、上限との差が0.5(1.0)以下になるまで後ろから食わせる
-    const use = [];
-    const baseLine = limit - (limit <= 30 ? 1000 : 500);
-    for (let i = riseList.length - 1; i >= 0 && base < baseLine; i--) {
-      base += riseList[i];
-      use.push(i);
-    }
+    const use:number[] = [];
 
-    const len = riseList.length - use.length;
+    const memo = new Map<string, { use: number[]; now: number }>();
+    const len = riseList.length;
     return (function fn(idx: number, now: number): { use: number[], now: number } {
+      const memoValue = memo.get(`${idx}-${now}`);
+      if (memoValue) {
+        return { use: memoValue.use.slice(), now: memoValue.now };
+      }
+
       let res;
       if (idx === len) {
         res = { use: use.slice(), now: 0 };
@@ -79,6 +79,9 @@ export namespace Logic {
         tmp2.use.push(idx);
         res = tmp1.now >= tmp2.now ? tmp1 : tmp2;
       }
+
+      memo.set(`${idx}-${now}`, { use: res.use.slice(), now: res.now });
+
       return res;
     })(0, base).use;
   }
