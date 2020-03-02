@@ -38,7 +38,7 @@ export namespace Logic {
     if (isNaN(esa) || esa < 27000 || esa > 33000) {
       return NaN;
     } else {
-      const base_rise = ((esa - 27000) / 10 + 50) / 1000;
+      const base_rise = rounding(((esa - 27000) / 10 + 50), 0, RoundFlag.Round) / 1000;
       const rise = base_rise * (same ? 2 : 1) * (ext ? 0.5 : 1);
       return rise;
     }
@@ -52,7 +52,7 @@ export namespace Logic {
    * @returns 強化に使用する餌のindex番号のリスト
    */
   export const calc = (riseList: number[], limit: number, base: number): number[] => {
-    const use:number[] = [];
+    const use: number[] = [];
 
     const memo = new Map<string, { use: number[]; now: number }>();
     const len = riseList.length;
